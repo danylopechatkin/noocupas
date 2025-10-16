@@ -1,2 +1,2 @@
-# noocupas-es
-Official website for NOOCUPAS — Spanish home security and anti-occupas service.
+# noocupas
+Full ecosystem of NOOCUPAS — website, CRM, API, contracts, media, and client app.
