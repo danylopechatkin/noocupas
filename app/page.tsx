@@ -78,7 +78,7 @@ export default function Home() {
               textAlign: "center"
             }}
           >
-            Ver planes
+            Ver plane
           </a>
 
           <a
