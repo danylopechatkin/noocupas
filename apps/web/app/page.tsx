@@ -458,6 +458,7 @@ export default function Home() {
       >
         NOOCUPAS © {new Date().getFullYear()} · Seguridad anti-okupas en toda España · WhatsApp 24h
       </footer>
+      {/* rebuild trigger */}
     </main>
   );
 }
