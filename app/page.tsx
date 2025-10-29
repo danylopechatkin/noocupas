@@ -39,7 +39,7 @@ export default function Home() {
             margin: "0 0 1rem"
           }}
         >
-          Instalación de alarma profesional
+          Instalación de alarma 
           <br />
           en 24 horas
         </h1>
