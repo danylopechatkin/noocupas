@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* базовые настройки */
+html, body {
+  height: 100%;
+}
+body {
+  background: #fff;
+  color: #111;
+}
+
+/* Сглаживание шрифтов в стиле Apple */
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
