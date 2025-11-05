@@ -1,25 +1,17 @@
+import "./globals.css";
+import { Inter } from "next/font/google";
+
+const inter = Inter({ subsets: ["latin"], display: "swap" });
+
 export const metadata = {
-  title: "NOOCUPAS — Seguridad anti-okupas en 24h",
-  description:
-    "Instalamos alarma profesional en 24 horas y monitorizamos tu propiedad 24/7.",
+  title: "NOOCUPAS – Smart Security in 24h",
+  description: "Professional alarm installation and monitoring within 24 hours.",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es">
-      <body
-        style={{
-          margin: 0,
-          backgroundColor: "#000",
-          color: "#fff",
-          fontFamily:
-            '-apple-system, BlinkMacSystemFont, "Inter", system-ui, Roboto, sans-serif',
-        }}
-      >
+    <html lang="en" className="bg-white">
+      <body className={`${inter.className} antialiased`}>
         {children}
       </body>
     </html>
