@@ -1,7 +1,12 @@
+// app/layout.tsx
 import "./globals.css";
-import { Inter } from "next/font/google";
+import { Manrope } from "next/font/google";  // ⬅ вместо Inter
 
-const inter = Inter({ subsets: ["latin"], display: "swap" });
+const manrope = Manrope({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "500", "600", "700", "800"], // нужные веса под меню/заголовки
+});
 
 export const metadata = {
   title: "NOOCUPAS – Smart Security in 24h",
@@ -11,7 +16,8 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="bg-white">
-      <body className={`${inter.className} antialiased`}>
+      <body className={`${manrope.className} antialiased`}>  {/* ⬅ используем Manrope */}
+        {/* Nav и контент */}
         {children}
       </body>
     </html>
