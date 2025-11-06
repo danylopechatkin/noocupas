@@ -14,7 +14,7 @@ export default function Nav() {
     <header className="fixed inset-x-0 top-0 z-50">
       {/* translucent bar with blur */}
       <div className="mx-auto max-w-[1380px] px-4 md:px-6 lg:px-8">
-        <div className="mt-2 h-[52px] rounded-full border border-black/5 bg-white/70 backdrop-blur-md supports-[backdrop-filter]:bg-white/60 shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+        <div className="mt-2 h-[56px] rounded-full border border-black/5 bg-white/70 backdrop-blur-md supports-[backdrop-filter]:bg-white/60 shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
           <div className="flex h-full items-center justify-between px-3 md:px-5">
             {/* Left: brand */}
             <Link href="/" className="inline-flex items-center gap-2">
