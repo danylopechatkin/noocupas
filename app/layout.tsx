@@ -1,4 +1,5 @@
 // app/layout.tsx
+import Nav from "../components/Nav";
 import "./globals.css";
 import { Manrope } from "next/font/google";  // ⬅ вместо Inter
 
@@ -18,6 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className="bg-white">
       <body className={`${manrope.className} antialiased`}>  {/* ⬅ используем Manrope */}
         {/* Nav и контент */}
+         <Nav />
         {children}
       </body>
     </html>
