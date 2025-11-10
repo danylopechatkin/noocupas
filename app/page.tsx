@@ -6,7 +6,19 @@ import React from "react";
 const Container: React.FC<React.PropsWithChildren<{ className?: string }>> = ({
   className = "",
   children,
-}) => <div className={`mx-auto w-full ${className}`}>{children}</div>;
+}) => (
+  <div
+    className={`
+      mx-auto 
+      w-full 
+      max-w-[1380px]          /* ограничиваем ширину контейнера */
+      px-[24px] sm:px-[40px] md:px-[56px] lg:px-[72px] /* боковые отступы */
+      ${className}
+    `}
+  >
+    {children}
+  </div>
+);
 
 const Buttons: React.FC<{
   dark?: boolean;
