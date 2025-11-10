@@ -1,12 +1,10 @@
 "use client";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 // ——————————————————————————————————————————————————————————
 // Small UI primitives
 
 // Базовый контейнер для всего сайта
-//  – ограничиваем ширину
-//  – задаём адаптивные боковые отступы
 const Container: React.FC<React.PropsWithChildren<{ className?: string }>> = ({
   className = "",
   children,
@@ -95,7 +93,7 @@ const VisualPlaceholder: React.FC<{
 );
 
 // ——————————————————————————————————————————————————————————
-// Section: Hero (dark) — with pro gradient + anchor
+// Hero sections
 
 const HeroDark: React.FC = () => (
   <section
@@ -118,7 +116,7 @@ const HeroDark: React.FC = () => (
       </div>
     </Container>
 
-    {/* картинка/кит */}
+    {/* визуал */}
     <Container>
       <div className="pb-10 md:pb-16 lg:pb-20">
         <VisualPlaceholder dark label="Flagship Kit — camera • siren • hub" />
@@ -126,8 +124,6 @@ const HeroDark: React.FC = () => (
     </Container>
   </section>
 );
-
-// Section: Hero (light) — with anchor
 
 const HeroLight: React.FC = () => (
   <section id="solutions" className="bg-[#F5F5F7] text-black">
@@ -157,7 +153,58 @@ const HeroLight: React.FC = () => (
 );
 
 // ——————————————————————————————————————————————————————————
-// Apple-style promo card (как блоки Watch / iPad)
+// Хук: следим, когда элемент попадает в viewport
+
+function useInView(threshold = 0.2) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [isInView, setIsInView] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsInView(true);
+            observer.unobserve(entry.target); // один раз, без мигания
+          }
+        });
+      },
+      { threshold }
+    );
+
+    observer.observe(el);
+
+    return () => observer.disconnect();
+  }, [threshold]);
+
+  return { ref, isInView };
+}
+
+// Обёртка для плавного появления карточек
+const TileReveal: React.FC<
+  React.PropsWithChildren<{ delay?: number }>
+> = ({ children, delay = 0 }) => {
+  const { ref, isInView } = useInView(0.25);
+
+  return (
+    <div
+      ref={ref}
+      className={`
+        transform transition-all duration-700 ease-out
+        ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}
+      `}
+      style={{ transitionDelay: `${delay}ms` }}
+    >
+      {children}
+    </div>
+  );
+};
+
+// ——————————————————————————————————————————————————————————
+// Apple-style promo card
 
 const Tile: React.FC<{
   theme?: "light" | "dark" | "soft";
@@ -265,7 +312,7 @@ const Tile: React.FC<{
 };
 
 // Rows of two tiles like Apple home page
-// ВАЖНО: отступ слева/справа равен gap между карточками
+// отступ слева/справа ≈ равен gap между карточками
 const TwoUpRow: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <div className="w-full px-4 sm:px-6 md:px-8 lg:px-10">
     <div
@@ -354,64 +401,76 @@ export default function Page() {
       {/* Grid rows 1–3 (like Apple home pairs) */}
       <section id="pricing" className="py-8 md:py-10">
         <TwoUpRow>
-          <Tile
-            theme="light"
-            eyebrow="Indoor kit"
-            title="Apartment Protection"
-            subtitle="Hub, keypad and motion sensors for apartments and small offices."
-            ctaPrimary="Learn more"
-            ctaSecondary="Order install"
-          />
-          <Tile
-            theme="dark"
-            eyebrow="Outdoor cameras"
-            title="Perimeter View"
-            subtitle="Weatherproof cameras with instant access from your phone."
-            ctaPrimary="View cameras"
-            ctaSecondary="Book visit"
-          />
+          <TileReveal delay={0}>
+            <Tile
+              theme="light"
+              eyebrow="Indoor kit"
+              title="Apartment Protection"
+              subtitle="Hub, keypad and motion sensors for apartments and small offices."
+              ctaPrimary="Learn more"
+              ctaSecondary="Order install"
+            />
+          </TileReveal>
+          <TileReveal delay={120}>
+            <Tile
+              theme="dark"
+              eyebrow="Outdoor cameras"
+              title="Perimeter View"
+              subtitle="Weatherproof cameras with instant access from your phone."
+              ctaPrimary="View cameras"
+              ctaSecondary="Book visit"
+            />
+          </TileReveal>
         </TwoUpRow>
       </section>
 
       <section className="py-8 md:py-10">
         <TwoUpRow>
-          <Tile
-            theme="soft"
-            eyebrow="Sirens"
-            title="Loud deterrence"
-            subtitle="Wireless sirens and light beacons that stop intruders fast."
-            ctaPrimary="Hear the power"
-            ctaSecondary="Compare options"
-          />
-          <Tile
-            theme="light"
-            eyebrow="Control app"
-            title="NOOCUPAS App"
-            subtitle="Arm, disarm and review events in seconds, from anywhere."
-            ctaPrimary="Preview app"
-            ctaSecondary="Get demo"
-          />
+          <TileReveal delay={0}>
+            <Tile
+              theme="soft"
+              eyebrow="Sirens"
+              title="Loud deterrence"
+              subtitle="Wireless sirens and light beacons that stop intruders fast."
+              ctaPrimary="Hear the power"
+              ctaSecondary="Compare options"
+            />
+          </TileReveal>
+          <TileReveal delay={120}>
+            <Tile
+              theme="light"
+              eyebrow="Control app"
+              title="NOOCUPAS App"
+              subtitle="Arm, disarm and review events in seconds, from anywhere."
+              ctaPrimary="Preview app"
+              ctaSecondary="Get demo"
+            />
+          </TileReveal>
         </TwoUpRow>
       </section>
 
       <section id="support" className="py-8 md:py-10">
         <TwoUpRow>
-          <Tile
-            theme="dark"
-            eyebrow="Integration"
-            title="Use existing devices"
-            subtitle="We reuse supported sensors and cameras to save your budget."
-            ctaPrimary="Check compatibility"
-            ctaSecondary="Book inspection"
-          />
-          <Tile
-            theme="soft"
-            eyebrow="Plans"
-            title="Plans that fit"
-            subtitle="Simple monthly subscriptions with monitoring and support."
-            ctaPrimary="See plans"
-            ctaSecondary="Talk to expert"
-          />
+          <TileReveal delay={0}>
+            <Tile
+              theme="dark"
+              eyebrow="Integration"
+              title="Use existing devices"
+              subtitle="We reuse supported sensors and cameras to save your budget."
+              ctaPrimary="Check compatibility"
+              ctaSecondary="Book inspection"
+            />
+          </TileReveal>
+          <TileReveal delay={120}>
+            <Tile
+              theme="soft"
+              eyebrow="Plans"
+              title="Plans that fit"
+              subtitle="Simple monthly subscriptions with monitoring and support."
+              ctaPrimary="See plans"
+              ctaSecondary="Talk to expert"
+            />
+          </TileReveal>
         </TwoUpRow>
       </section>
 
