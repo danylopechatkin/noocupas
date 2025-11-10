@@ -3,16 +3,20 @@ import React from "react";
 
 // ——————————————————————————————————————————————————————————
 // Small UI primitives
+
+// Базовый контейнер для всего сайта
+//  – ограничиваем ширину
+//  – задаём адаптивные боковые отступы
 const Container: React.FC<React.PropsWithChildren<{ className?: string }>> = ({
   className = "",
   children,
 }) => (
   <div
     className={`
-      mx-auto 
-      w-full 
-      max-w-[1380px]          /* ограничиваем ширину контейнера */
-      px-[24px] sm:px-[40px] md:px-[56px] lg:px-[72px] /* боковые отступы */
+      mx-auto
+      w-full
+      max-w-[1400px]
+      px-4 sm:px-6 md:px-8 lg:px-10
       ${className}
     `}
   >
@@ -92,59 +96,76 @@ const VisualPlaceholder: React.FC<{
 
 // ——————————————————————————————————————————————————————————
 // Section: Hero (dark) — with pro gradient + anchor
+
 const HeroDark: React.FC = () => (
   <section
     id="products"
     className="bg-gradient-to-b from-[#0a0a0a] to-[#1a1a1a] text-white"
   >
-    <Container className="max-w-[980px] px-[24px] sm:px-[30px] md:px-[40px] lg:px-[56px] text-center">
-      <div className="pt-24 pb-10 md:pt-28 md:pb-14">
-        <h1 className="text-[44px] md:text-[64px] lg:text-[80px] leading-[0.95] font-extrabold tracking-[-0.02em]">
-          NOOCUPAS Pro
-        </h1>
-        <p className="mt-3 text-lg md:text-2xl text-white/80">
-          Smart home security that acts in minutes. Installation within 24
-          hours.
-        </p>
-        <Buttons dark primaryLabel="Install now" secondaryLabel="How it works" />
+    {/* текст */}
+    <Container>
+      <div className="mx-auto max-w-[980px] text-center">
+        <div className="pt-24 pb-10 md:pt-28 md:pb-14">
+          <h1 className="text-[44px] md:text-[64px] lg:text-[80px] leading-[0.95] font-extrabold tracking-[-0.02em]">
+            NOOCUPAS Pro
+          </h1>
+          <p className="mt-3 text-lg md:text-2xl text-white/80">
+            Smart home security that acts in minutes. Installation within 24
+            hours.
+          </p>
+          <Buttons dark primaryLabel="Install now" secondaryLabel="How it works" />
+        </div>
       </div>
     </Container>
-    <Container className="max-w-[1400px] px-[24px] sm:px-[30px] md:px-[40px] lg:px-[56px] pb-10 md:pb-16 lg:pb-20">
-      <VisualPlaceholder dark label="Flagship Kit — camera • siren • hub" />
+
+    {/* картинка/кит */}
+    <Container>
+      <div className="pb-10 md:pb-16 lg:pb-20">
+        <VisualPlaceholder dark label="Flagship Kit — camera • siren • hub" />
+      </div>
     </Container>
   </section>
 );
 
 // Section: Hero (light) — with anchor
+
 const HeroLight: React.FC = () => (
   <section id="solutions" className="bg-[#F5F5F7] text-black">
-    <Container className="max-w-[980px] px-[24px] sm:px-[30px] md:px-[40px] lg:px-[56px] text-center">
-      <div className="pt-20 pb-8 md:pt-24 md:pb-12">
-        <h2 className="text-[40px] md:text-[56px] leading-[0.95] font-bold tracking-[-0.02em]">
-          NOOCUPAS Air
-        </h2>
-        <p className="mt-3 text-lg md:text-2xl text-neutral-700">
-          Minimal, discreet, powerful. A clean setup that blends into any
-          interior.
-        </p>
-        <Buttons primaryLabel="See plans" secondaryLabel="Compare kits" />
+    {/* текст */}
+    <Container>
+      <div className="mx-auto max-w-[980px] text-center">
+        <div className="pt-20 pb-8 md:pt-24 md:pb-12">
+          <h2 className="text-[40px] md:text-[56px] leading-[0.95] font-bold tracking-[-0.02em]">
+            NOOCUPAS Air
+          </h2>
+          <p className="mt-3 text-lg md:text-2xl text-neutral-700">
+            Minimal, discreet, powerful. A clean setup that blends into any
+            interior.
+          </p>
+          <Buttons primaryLabel="See plans" secondaryLabel="Compare kits" />
+        </div>
       </div>
     </Container>
-    <Container className="max-w-[1400px] px-[24px] sm:px-[30px] md:px-[40px] lg:px-[56px] pb-10 md:pb-16 lg:pb-20">
-      <VisualPlaceholder label="Slim sensors • hidden wiring • low-profile mounts" />
+
+    {/* визуал */}
+    <Container>
+      <div className="pb-10 md:pb-16 lg:pb-20">
+        <VisualPlaceholder label="Slim sensors • hidden wiring • low-profile mounts" />
+      </div>
     </Container>
   </section>
 );
 
 // ——————————————————————————————————————————————————————————
 // Apple-style promo card (как блоки Watch / iPad)
+
 const Tile: React.FC<{
   theme?: "light" | "dark" | "soft";
-  eyebrow?: string; // маленький заголовок сверху (категория)
-  title: string; // большое название устройства/услуги
-  subtitle?: string; // подзаголовок
-  ctaPrimary?: string; // текст кнопки 1
-  ctaSecondary?: string; // текст кнопки 2
+  eyebrow?: string;
+  title: string;
+  subtitle?: string;
+  ctaPrimary?: string;
+  ctaSecondary?: string;
 }> = ({
   theme = "light",
   eyebrow,
@@ -154,15 +175,14 @@ const Tile: React.FC<{
   ctaSecondary = "Order now",
 }) => {
   const isDark = theme === "dark";
-  const isSoft = theme === "soft"; // soft gray
+  const isSoft = theme === "soft";
 
-  // фоны в духе Apple
   const bg =
     theme === "dark"
-      ? "bg-[#0B0B0B] text-white" // iPad Pro / dark promo
+      ? "bg-[#0B0B0B] text-white"
       : theme === "soft"
-      ? "bg-[#F5F5F7] text-black" // Trade In / AirPods
-      : "bg-white text-black"; // белые промо-блоки
+      ? "bg-[#F5F5F7] text-black"
+      : "bg-white text-black";
 
   return (
     <div
@@ -172,7 +192,7 @@ const Tile: React.FC<{
         transition-shadow duration-300`}
     >
       <div className="flex h-full flex-col">
-        {/* Верхняя текстовая часть как у Apple Watch карточек */}
+        {/* Верхняя текстовая часть */}
         <div className="px-6 md:px-10 pt-10 md:pt-14 pb-6 text-center">
           {eyebrow && (
             <div
@@ -198,7 +218,7 @@ const Tile: React.FC<{
             </p>
           )}
 
-          {/* Кнопки в стиле Learn more / Buy */}
+          {/* Кнопки Learn more / Buy */}
           <div className="mt-6 flex items-center justify-center gap-3">
             <button
               className={`inline-flex items-center rounded-full px-5 py-2 text-sm font-medium tracking-tight ${
@@ -245,17 +265,13 @@ const Tile: React.FC<{
 };
 
 // Rows of two tiles like Apple home page
+// ВАЖНО: отступ слева/справа равен gap между карточками
 const TwoUpRow: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <div
-    className="
-      mx-auto w-full max-w-[1400px]
-      px-6 sm:px-8 lg:px-10
-    "
-  >
+  <div className="w-full px-4 sm:px-6 md:px-8 lg:px-10">
     <div
       className="
         grid grid-cols-1 md:grid-cols-2
-        gap-6 sm:gap-8 lg:gap-10
+        gap-4 sm:gap-6 md:gap-8 lg:gap-10
       "
     >
       {children}
@@ -265,9 +281,10 @@ const TwoUpRow: React.FC<{ children: React.ReactNode }> = ({ children }) => (
 
 // ——————————————————————————————————————————————————————————
 // Footer + legal
+
 const Legal: React.FC = () => (
   <section className="bg-white">
-    <Container className="max-w-[1400px] px-[24px] sm:px-[30px] md:px-[40px] lg:px-[56px]">
+    <Container>
       <div className="border-t border-neutral-200 pt-10 pb-6">
         <p className="text-xs leading-6 text-neutral-500">
           1. Installation time depends on location and availability. Same-day
@@ -286,7 +303,7 @@ const Legal: React.FC = () => (
 
 const Footer: React.FC = () => (
   <footer className="bg-[#F5F5F7] text-black">
-    <Container className="max-w-[1400px] px-[24px] sm:px-[30px] md:px-[40px] lg:px-[56px]">
+    <Container>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 py-10">
         {[
           { h: "Products", i: ["Pro Kit", "Air Kit", "Cameras", "Sirens"] },
@@ -327,13 +344,11 @@ const Footer: React.FC = () => (
 
 // ——————————————————————————————————————————————————————————
 // Page assembly
+
 export default function Page() {
   return (
     <main className="bg-white text-[#111] font-sans">
-      {/* Dark hero (Pro) */}
       <HeroDark />
-
-      {/* Light hero (Air) */}
       <HeroLight />
 
       {/* Grid rows 1–3 (like Apple home pairs) */}
@@ -400,7 +415,6 @@ export default function Page() {
         </TwoUpRow>
       </section>
 
-      {/* Legal + Footer */}
       <Legal />
       <Footer />
     </main>
