@@ -53,7 +53,7 @@ const Buttons: React.FC<{
   </div>
 );
 
-// Placeholder visual block in Apple style (clean, glossy, product-centric)
+// Placeholder visual block в других секциях (оставляем как есть)
 const VisualPlaceholder: React.FC<{
   dark?: boolean;
   label?: string;
@@ -72,7 +72,6 @@ const VisualPlaceholder: React.FC<{
               : "[background:radial-gradient(80%_60%_at_50%_60%,#ffffff,transparent)]"
           }`}
         />
-        {/* ослабляем бордер, чтобы не давал паразитных линий под прозрачным меню */}
         <div
           className={`absolute inset-6 rounded-3xl border ${
             dark ? "border-white/5" : "border-black/5"
@@ -95,12 +94,12 @@ const VisualPlaceholder: React.FC<{
 );
 
 // ——————————————————————————————————————————————————————————
-// Section: Hero (dark) — with pro gradient + anchor
+// HERO (dark) — теперь с реальной картинкой оборудования
 
 const HeroDark: React.FC = () => (
   <section
     id="products"
-    className="bg-gradient-to-b from-[#0a0a0a] to-[#1a1a1a] text-white"
+    className="bg-gradient-to-b from-[#050505] via-[#050505] to-[#050505] text-white"
   >
     {/* текст */}
     <Container>
@@ -118,20 +117,44 @@ const HeroDark: React.FC = () => (
       </div>
     </Container>
 
-    {/* картинка/кит */}
+    {/* НОВЫЙ блок под картинку оборудования на всю ширину */}
     <Container>
       <div className="pb-10 md:pb-16 lg:pb-20">
-        <VisualPlaceholder dark label="Flagship Kit — camera • siren • hub" />
+        <div
+          className="
+            relative overflow-hidden rounded-[32px]
+            bg-gradient-to-b from-[#05060a] via-[#05060a] to-[#020204]
+            shadow-[0_40px_120px_rgba(0,0,0,0.8)]
+          "
+        >
+          {/* фон-градиент, чтобы картинка сливалась с нашим background */}
+          <div className="aspect-[21/9] w-full flex items-center justify-center">
+            {/* сюда просто кладём png/jpg оборудования */}
+            <img
+              src="/images/noocupas-hero-equipment.png"
+              alt="NOOCUPAS security equipment set"
+              className="
+                max-h-full w-auto
+                object-contain
+                drop-shadow-[0_30px_80px_rgba(0,0,0,0.9)]
+              "
+            />
+          </div>
+
+          {/* лёгкое свечение по контуру, как у Ajax / Apple */}
+          <div className="pointer-events-none absolute inset-0 rounded-[32px] ring-1 ring-white/5" />
+          <div className="pointer-events-none absolute inset-x-20 bottom-0 h-40 bg-[radial-gradient(ellipse_at_bottom,#000000_0%,transparent_65%)] opacity-60" />
+        </div>
       </div>
     </Container>
   </section>
 );
 
-// Section: Hero (light) — with anchor
+// ——————————————————————————————————————————————————————————
+// Section: Hero (light) — без изменений
 
 const HeroLight: React.FC = () => (
   <section id="solutions" className="bg-[#F5F5F7] text-black">
-    {/* текст */}
     <Container>
       <div className="mx-auto max-w-[980px] text-center">
         <div className="pt-20 pb-8 md:pt-24 md:pb-12">
@@ -147,7 +170,6 @@ const HeroLight: React.FC = () => (
       </div>
     </Container>
 
-    {/* визуал */}
     <Container>
       <div className="pb-10 md:pb-16 lg:pb-20">
         <VisualPlaceholder label="Slim sensors • hidden wiring • low-profile mounts" />
@@ -157,7 +179,7 @@ const HeroLight: React.FC = () => (
 );
 
 // ——————————————————————————————————————————————————————————
-// Apple-style promo card (как блоки Watch / iPad)
+// Apple-style promo cards
 
 const Tile: React.FC<{
   theme?: "light" | "dark" | "soft";
@@ -194,7 +216,6 @@ const Tile: React.FC<{
       `}
     >
       <div className="flex h-full flex-col">
-        {/* Верхняя текстовая часть */}
         <div className="px-6 md:px-10 pt-10 md:pt-14 pb-6 text-center">
           {eyebrow && (
             <div
@@ -220,7 +241,6 @@ const Tile: React.FC<{
             </p>
           )}
 
-          {/* Кнопки Learn more / Buy */}
           <div className="mt-6 flex items-center justify-center gap-3">
             <button
               className={`inline-flex items-center rounded-full px-5 py-2 text-sm font-medium tracking-tight ${
@@ -243,7 +263,6 @@ const Tile: React.FC<{
           </div>
         </div>
 
-        {/* Нижняя зона под картинку устройства */}
         <div className="mt-4 px-6 md:px-8 pb-10">
           <div className="overflow-hidden rounded-2xl border border-black/5 dark:border-white/10">
             <div
@@ -266,8 +285,7 @@ const Tile: React.FC<{
   );
 };
 
-// Rows of two tiles like Apple home page
-// ВАЖНО: отступ слева/справа равен gap между карточками
+// сетка с карточками
 const TwoUpRow: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <div className="w-full px-4 sm:px-6 md:px-8 lg:px-10">
     <div
@@ -353,7 +371,6 @@ export default function Page() {
       <HeroDark />
       <HeroLight />
 
-      {/* Grid rows 1–3 (like Apple home pairs) */}
       <section id="pricing" className="py-8 md:py-10">
         <TwoUpRow>
           <Tile
