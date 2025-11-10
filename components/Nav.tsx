@@ -2,7 +2,7 @@
 import React from "react";
 import Link from "next/link";
 
-// маленький жёлтый логотип-уточка
+// фирменный логотип-уточка (чуть увеличен и приподнят)
 const DuckIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg
     viewBox="0 0 24 24"
@@ -29,11 +29,11 @@ const DuckIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
 export default function Nav() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 bg-[#0b0b0b]/80 backdrop-blur-md supports-[backdrop-filter]:bg-[#0b0b0b]/60 border-b border-white/10">
-      <div className="mx-auto flex h-[44px] md:h-[48px] max-w-[1400px] items-center justify-between px-4 sm:px-6 md:px-8 lg:px-10">
+      <div className="mx-auto flex h-[52px] md:h-[60px] max-w-[1400px] items-center justify-between px-4 sm:px-6 md:px-8 lg:px-10">
         {/* Left: brand */}
         <Link href="/" className="inline-flex items-center gap-2">
-          <DuckIcon className="h-4 w-4 md:h-5 md:w-5" />
-          <span className="text-[14px] md:text-[15px] font-semibold tracking-tight text-white">
+          <DuckIcon className="h-7 w-7 md:h-8 md:w-8 relative -top-[1px]" />
+          <span className="text-[15px] md:text-[17px] font-semibold tracking-tight text-white">
             NOOCUPAS
           </span>
         </Link>
