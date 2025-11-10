@@ -234,8 +234,13 @@ const Tile: React.FC<{
 
 // Rows of two tiles like Apple home page
 const TwoUpRow: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <Container className="max-w-[1400px]">
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-8">
+  <Container className="max-w-[1400px] px-[24px] sm:px-[30px] md:px-[40px] lg:px-[56px]">
+    <div
+      className="
+        grid grid-cols-1 md:grid-cols-2
+        gap-[24px] sm:gap-[30px] md:gap-[40px] lg:gap-[56px]
+      "
+    >
       {children}
     </div>
   </Container>
