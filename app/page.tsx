@@ -234,15 +234,7 @@ const Tile: React.FC<{
 
 // Rows of two tiles like Apple home page
 const TwoUpRow: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <Container
-    className="
-      max-w-[1400px]
-      px-[24px]          /* телефоны */
-      sm:px-[30px]       /* ~30px как ты просил */
-      md:px-[40px]
-      lg:px-[56px]       /* чуть шире на больших мониторах, как у Apple */
-    "
-  >
+  <Container className="max-w-[1400px]">
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-8">
       {children}
     </div>
