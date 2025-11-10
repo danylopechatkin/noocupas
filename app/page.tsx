@@ -85,8 +85,8 @@ const HeroDark: React.FC = () => (
     id="products"
     className="bg-gradient-to-b from-[#0a0a0a] to-[#1a1a1a] text-white"
   >
-    <Container className="max-w-[980px] px-4 md:px-6 text-center">
-      <div className="pt-20 pb-10 md:pt-24 md:pb-14">
+    <Container className="max-w-[980px] px-[24px] sm:px-[30px] md:px-[40px] lg:px-[56px] text-center">
+      <div className="pt-24 pb-10 md:pt-28 md:pb-14">
         <h1 className="text-[44px] md:text-[64px] lg:text-[80px] leading-[0.95] font-extrabold tracking-[-0.02em]">
           NOOCUPAS Pro
         </h1>
@@ -97,7 +97,7 @@ const HeroDark: React.FC = () => (
         <Buttons dark primaryLabel="Install now" secondaryLabel="How it works" />
       </div>
     </Container>
-    <Container className="max-w-[1380px] px-4 md:px-6 lg:px-8 pb-14 md:pb-20">
+    <Container className="max-w-[1400px] px-[24px] sm:px-[30px] md:px-[40px] lg:px-[56px] pb-10 md:pb-16 lg:pb-20">
       <VisualPlaceholder dark label="Flagship Kit — camera • siren • hub" />
     </Container>
   </section>
@@ -106,7 +106,7 @@ const HeroDark: React.FC = () => (
 // Section: Hero (light) — with anchor
 const HeroLight: React.FC = () => (
   <section id="solutions" className="bg-[#F5F5F7] text-black">
-    <Container className="max-w-[980px] px-4 md:px-6 text-center">
+    <Container className="max-w-[980px] px-[24px] sm:px-[30px] md:px-[40px] lg:px-[56px] text-center">
       <div className="pt-20 pb-8 md:pt-24 md:pb-12">
         <h2 className="text-[40px] md:text-[56px] leading-[0.95] font-bold tracking-[-0.02em]">
           NOOCUPAS Air
@@ -118,7 +118,7 @@ const HeroLight: React.FC = () => (
         <Buttons primaryLabel="See plans" secondaryLabel="Compare kits" />
       </div>
     </Container>
-    <Container className="max-w-[1380px] px-4 md:px-6 lg:px-8 pb-14 md:pb-20">
+    <Container className="max-w-[1400px] px-[24px] sm:px-[30px] md:px-[40px] lg:px-[56px] pb-10 md:pb-16 lg:pb-20">
       <VisualPlaceholder label="Slim sensors • hidden wiring • low-profile mounts" />
     </Container>
   </section>
@@ -144,15 +144,21 @@ const Tile: React.FC<{
   const isDark = theme === "dark";
   const isSoft = theme === "soft"; // soft gray
 
+  // фоны в духе Apple
   const bg =
     theme === "dark"
-      ? "bg-[#0B0B0B] text-white"
+      ? "bg-[#0B0B0B] text-white" // iPad Pro / dark promo
       : theme === "soft"
-      ? "bg-[#F5F5F7] text-black"
-      : "bg-white text-black";
+      ? "bg-[#F5F5F7] text-black" // Trade In / AirPods
+      : "bg-white text-black"; // белые промо-блоки
 
   return (
-    <div className={`relative overflow-hidden rounded-3xl ${bg}`}>
+    <div
+      className={`relative overflow-hidden rounded-3xl ${bg}
+        shadow-[0_18px_40px_rgba(0,0,0,0.08)]
+        hover:shadow-[0_24px_60px_rgba(0,0,0,0.12)]
+        transition-shadow duration-300`}
+    >
       <div className="flex h-full flex-col">
         {/* Верхняя текстовая часть как у Apple Watch карточек */}
         <div className="px-6 md:px-10 pt-10 md:pt-14 pb-6 text-center">
@@ -228,8 +234,16 @@ const Tile: React.FC<{
 
 // Rows of two tiles like Apple home page
 const TwoUpRow: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <Container className="max-w-[1380px] px-4 md:px-6 lg:px-8">
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+  <Container
+    className="
+      max-w-[1400px]
+      px-[24px]          /* телефоны */
+      sm:px-[30px]       /* ~30px как ты просил */
+      md:px-[40px]
+      lg:px-[56px]       /* чуть шире на больших мониторах, как у Apple */
+    "
+  >
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-8">
       {children}
     </div>
   </Container>
@@ -239,7 +253,7 @@ const TwoUpRow: React.FC<{ children: React.ReactNode }> = ({ children }) => (
 // Footer + legal
 const Legal: React.FC = () => (
   <section className="bg-white">
-    <Container className="max-w-[1380px] px-4 md:px-6 lg:px-8">
+    <Container className="max-w-[1400px] px-[24px] sm:px-[30px] md:px-[40px] lg:px-[56px]">
       <div className="border-t border-neutral-200 pt-10 pb-6">
         <p className="text-xs leading-6 text-neutral-500">
           1. Installation time depends on location and availability. Same-day
@@ -258,7 +272,7 @@ const Legal: React.FC = () => (
 
 const Footer: React.FC = () => (
   <footer className="bg-[#F5F5F7] text-black">
-    <Container className="max-w-[1380px] px-4 md:px-6 lg:px-8">
+    <Container className="max-w-[1400px] px-[24px] sm:px-[30px] md:px-[40px] lg:px-[56px]">
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 py-10">
         {[
           { h: "Products", i: ["Pro Kit", "Air Kit", "Cameras", "Sirens"] },
@@ -309,7 +323,7 @@ export default function Page() {
       <HeroLight />
 
       {/* Grid rows 1–3 (like Apple home pairs) */}
-      <section id="pricing" className="py-8 md:py-12">
+      <section id="pricing" className="py-8 md:py-10">
         <TwoUpRow>
           <Tile
             theme="light"
@@ -330,7 +344,7 @@ export default function Page() {
         </TwoUpRow>
       </section>
 
-      <section className="py-2 md:py-6">
+      <section className="py-8 md:py-10">
         <TwoUpRow>
           <Tile
             theme="soft"
@@ -351,7 +365,7 @@ export default function Page() {
         </TwoUpRow>
       </section>
 
-      <section id="support" className="py-2 md:py-6">
+      <section id="support" className="py-8 md:py-10">
         <TwoUpRow>
           <Tile
             theme="dark"
