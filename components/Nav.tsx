@@ -3,50 +3,69 @@ import React from "react";
 import Link from "next/link";
 
 /**
- * Apple/AJAX-style top navigation for NOOCUPAS (desktop first)
- * - 52px height, translucent blur, no bottom divider
- * - Palette: white / black / yellow-400
+ * Apple-style top navigation for NOOCUPAS (desktop first)
+ * - Full-width dark bar, attached to top
+ * - Sticky while scrolling
+ * - Text links center, actions right
+ * - Colors: dark background, white text, yellow CTA
  */
 
 export default function Nav() {
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
-      <div className="mx-auto max-w-[1380px] px-4 md:px-6 lg:px-8">
-        <div className="mt-2 h-[56px] rounded-full border border-black/5 bg-white/90 backdrop-blur-md supports-[backdrop-filter]:bg-white/80 shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
-          <div className="flex h-full items-center justify-between px-3 md:px-5">
-            {/* Brand */}
-            <Link href="/" className="inline-flex items-center gap-2">
-              <span className="inline-block h-3 w-3 rounded-full bg-yellow-400" />
-              <span className="text-[15px] font-semibold tracking-tight">NOOCUPAS</span>
-            </Link>
+    <header className="fixed inset-x-0 top-0 z-50 bg-[#111111]/95 backdrop-blur border-b border-white/10">
+      <div className="mx-auto flex h-[44px] md:h-[48px] max-w-[1380px] items-center justify-between px-4 md:px-8">
+        {/* Left: brand */}
+        <Link href="/" className="inline-flex items-center gap-2">
+          <span className="inline-block h-3 w-3 rounded-full bg-yellow-400" />
+          <span className="text-[14px] md:text-[15px] font-semibold tracking-tight text-white">
+            NOOCUPAS
+          </span>
+        </Link>
 
-            {/* Links (desktop only) */}
-            <nav className="hidden md:flex items-center gap-6">
-              <Link href="#products"  className="text-[15px] font-medium tracking-tight text-neutral-800 hover:text-black">Products</Link>
-              <Link href="#solutions" className="text-[15px] font-medium tracking-tight text-neutral-800 hover:text-black">Solutions</Link>
-              <Link href="#pricing"   className="text-[15px] font-medium tracking-tight text-neutral-800 hover:text-black">Pricing</Link>
-              <Link href="#support"   className="text-[15px] font-medium tracking-tight text-neutral-800 hover:text-black">Support</Link>
-            </nav>
+        {/* Center: links (desktop only) — как у Apple */}
+        <nav className="hidden md:flex items-center gap-6">
+          <Link
+            href="#products"
+            className="text-[13px] font-medium tracking-tight text-zinc-200 hover:text-white"
+          >
+            Products
+          </Link>
+          <Link
+            href="#solutions"
+            className="text-[13px] font-medium tracking-tight text-zinc-200 hover:text-white"
+          >
+            Solutions
+          </Link>
+          <Link
+            href="#pricing"
+            className="text-[13px] font-medium tracking-tight text-zinc-200 hover:text-white"
+          >
+            Pricing
+          </Link>
+          <Link
+            href="#support"
+            className="text-[13px] font-medium tracking-tight text-zinc-200 hover:text-white"
+          >
+            Support
+          </Link>
+        </nav>
 
-            {/* Actions */}
-            <div className="flex items-center gap-2">
-              <Link
-                href="#contact"
-                className="hidden md:inline-flex items-center rounded-full border border-black/10 px-5 py-[7px] text-[15px] font-medium tracking-tight text-neutral-800 hover:border-black/20 transition-colors"
-              >
-                Contact
-              </Link>
-              <Link
-                href="#install"
-                className="inline-flex items-center rounded-full bg-yellow-400 px-5 py-[7px] text-[15px] font-semibold tracking-tight text-black hover:shadow-[0_0_25px_rgba(250,204,21,0.3)] active:scale-[0.99] transition-all"
-              >
-                Install now
-              </Link>
-            </div>
-          </div>
+        {/* Right: actions */}
+        <div className="flex items-center gap-2">
+          <Link
+            href="#contact"
+            className="hidden md:inline-flex items-center rounded-full px-4 py-[6px] text-[13px] font-medium tracking-tight text-zinc-200 hover:text-white"
+          >
+            Contact
+          </Link>
+          <Link
+            href="#install"
+            className="inline-flex items-center rounded-full bg-yellow-400 px-4 md:px-5 py-[6px] text-[13px] md:text-[14px] font-semibold tracking-tight text-black hover:shadow-[0_0_22px_rgba(250,204,21,0.35)] active:scale-[0.99] transition-all"
+          >
+            Install now
+          </Link>
         </div>
       </div>
-      {/* bottom divider removed to avoid a visible line */}
     </header>
   );
 }
